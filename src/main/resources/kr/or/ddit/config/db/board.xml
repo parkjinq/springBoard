@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="board">
+
+	<!-- 로그인시 입력한 정보와 잂치하는 유저가 있는지 확인하는 쿼리문 -->
+	<select id="selectAllBoard" resultType="boardVO">
+		SELECT * FROM board
+	</select>
+	
+	<select id="selectBoard" parameterType="String" resultType="boardVO">
+		SELECT * FROM board WHERE bd_id = #{bd_id}
+	</select>
+	
+	<insert id="insertBoard" parameterType="boardVO">
+		INSERT INTO board VALUES ('bd'||LPAD(BOARD_SEQ.NEXTVAL,3,'0'), #{bd_title}, #{bd_use}, SYSDATE, #{userid})
+	</insert>
+	
+	<update id="updateBoard" parameterType="boardVO">
+		UPDATE	board
+		SET		bd_title = #{bd_title},
+				bd_use = #{bd_use}
+		WHERE	bd_id = #{bd_id}
+	</update>
+	
+</mapper>

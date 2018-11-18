@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="comments">
+
+	<select id="selectCommentsDetail" parameterType="String" resultType="commentsVO">
+		SELECT * FROM comments WHERE ps_id = #{ps_id}
+	</select>
+	
+	<insert id="insertComments" parameterType="commentsVO">
+		INSERT INTO comments VALUES ('cm'||LPAD(COMMENTS_SEQ.NEXTVAL,3,'0'), #{ps_id}, #{cm_cnt}, SYSDATE, #{userid}, 'N')
+	</insert>
+	
+	<update id="updateComments" parameterType="String">
+		UPDATE	comments
+		SET		cm_del = 'Y'
+		WHERE	cm_id = #{cm_id}
+	</update>
+	
+</mapper>
